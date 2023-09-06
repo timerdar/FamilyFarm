@@ -4,16 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b4e2ad2-7993-4fe6-8cfd-0ceb3598e98c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+    <list default="true" id="2b4e2ad2-7993-4fe6-8cfd-0ceb3598e98c" name="Changes" comment="Recreate SpringApp">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/DatabaseController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/ErrorHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/MainActionsController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/Consumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/District.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/Order.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/tablesControllers/ProductsTableController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -34,6 +46,21 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="Start" type="Application" factoryName="Application">
+      <envs>
+        <env name="db_url" value="jdbc:postgresql://localhost:5678/" />
+        <env name="db_name" value="farm" />
+        <env name="db_user" value="admin" />
+        <env name="db_password" value="admin" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="com.timerdar.FamilyFarm.FamilyFarmApplication" />
+      <module name="FamilyFarm" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -43,6 +70,21 @@
       <option name="presentableId" value="Default" />
       <updated>1694005478647</updated>
     </task>
+    <task id="LOCAL-00001" summary="Recreate SpringApp">
+      <created>1694012619556</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1694012619556</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Recreate SpringApp">
+      <created>1694012776750</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1694012776750</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -55,5 +97,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Recreate SpringApp" />
+    <option name="LAST_COMMIT_MESSAGE" value="Recreate SpringApp" />
   </component>
 </project>
