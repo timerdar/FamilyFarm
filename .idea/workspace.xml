@@ -4,16 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2b4e2ad2-7993-4fe6-8cfd-0ceb3598e98c" name="Changes" comment="Recreate SpringApp">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/DatabaseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/ErrorHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/MainActionsController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/Consumer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/District.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/Order.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/tablesControllers/ProductsTableController.java" afterDir="false" />
+    <list default="true" id="2b4e2ad2-7993-4fe6-8cfd-0ceb3598e98c" name="Changes" comment="#2 Add default data models, exception handle, database controller and methods to work with Products table">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/dbs/Consumers.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/dbs/CurrentDelivery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/dbs/Orders.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/dbs/Products.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/CDOrder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/rest/MainApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/timerdar/FamilyFarm/Test.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/DatabaseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/dbs/DatabaseController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/MainActionsController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/Consumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/Consumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/District.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/models/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/timerdar/FamilyFarm/tablesControllers/ProductsTableController.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +29,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -39,14 +46,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.timerdar.FamilyFarm" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Test">
     <configuration name="Start" type="Application" factoryName="Application">
       <envs>
         <env name="db_url" value="jdbc:postgresql://localhost:5678/" />
@@ -60,6 +72,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Test" type="Application" factoryName="Application">
+      <envs>
+        <env name="db_url" value="jdbc:postgresql://localhost:5678/" />
+        <env name="db_name" value="farm" />
+        <env name="db_user" value="admin" />
+        <env name="db_password" value="admin" />
+      </envs>
+      <option name="MAIN_CLASS_NAME" value="com.timerdar.FamilyFarm.Test" />
+      <module name="FamilyFarm" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Start" />
+      <item itemvalue="Application.Test" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -84,7 +113,14 @@
       <option name="project" value="LOCAL" />
       <updated>1694012776750</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="#2 Add default data models, exception handle, database controller and methods to work with Products table">
+      <created>1694026333185</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1694026333185</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -100,6 +136,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Recreate SpringApp" />
-    <option name="LAST_COMMIT_MESSAGE" value="Recreate SpringApp" />
+    <MESSAGE value="#2 Add default data models, exception handle, database controller and methods to work with Products table" />
+    <option name="LAST_COMMIT_MESSAGE" value="#2 Add default data models, exception handle, database controller and methods to work with Products table" />
   </component>
 </project>

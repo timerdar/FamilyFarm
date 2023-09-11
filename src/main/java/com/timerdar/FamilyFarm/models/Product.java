@@ -7,6 +7,8 @@ import lombok.Setter;
 public class Product {
 
     @Getter @Setter
+    private int productId;
+    @Getter @Setter
     private String productName = null;
 
     @Getter @Setter
@@ -21,6 +23,6 @@ public class Product {
 
     @Override
     public String toString() {
-        return "{\"productName\":" + productName + "\", \"price\":" + price + '}';
+        return productName + " " + price;
     }
 }

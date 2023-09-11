@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 public class Consumer {
-    @Getter @Setter
-    private int id;
 
     @Getter @Setter
     private String consumerName;
@@ -14,18 +12,22 @@ public class Consumer {
     private String address;
 
     @Getter @Setter
-    private int district;
+    private String district;
 
     @Getter @Setter
     private String phoneNumber;
 
     public Consumer(){}
 
-    public Consumer(int id, String consumerName, String address, int district, String phoneNumber) {
-        this.id = id;
+    public Consumer(String consumerName, String address, String district, String phoneNumber) {
         this.consumerName = consumerName;
         this.address = address;
         this.district = district;
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return consumerName + " " + address + " " + district + " " + phoneNumber;
     }
 }

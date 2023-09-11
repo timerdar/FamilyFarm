@@ -6,31 +6,24 @@ import lombok.Setter;
 public class Order {
 
     @Getter @Setter
-    private int orderId;
+    private String productName;
 
     @Getter @Setter
-    private int productId;
+    private String consumerName;
 
     @Getter @Setter
     private float amount;
 
-    @Getter @Setter
-    private int totalCost;
-
-    @Getter @Setter
-    private boolean done = false;
-
-    @Getter @Setter
-    private String note;
-
     public Order(){}
 
-    public Order(int orderId, int productId, float amount, int totalCost, boolean done, String note) {
-        this.orderId = orderId;
-        this.productId = productId;
+    public Order(String productName, String consumerName, float amount) {
+        this.productName = productName;
+        this.consumerName = consumerName;
         this.amount = amount;
-        this.totalCost = totalCost;
-        this.done = done;
-        this.note = note;
+    }
+
+    @Override
+    public String toString() {
+        return consumerName + " " + productName  + " " + amount;
     }
 }

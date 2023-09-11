@@ -1,4 +1,4 @@
-package com.timerdar.FamilyFarm;
+package com.timerdar.FamilyFarm.dbs;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
