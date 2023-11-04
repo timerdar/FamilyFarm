@@ -50,15 +50,32 @@ public class ProductDB extends DatabaseController{
 
 
     public String changePrice(Product product){
-        String query = "update product set price = ? where name = '" + product.getName() + "'";
+        String query = "update product set price = ? where name = ?";
 
         try (Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(query)){
 
             preparedStatement.setDouble(1, product.getPrice());
+            preparedStatement.setString(2, product.getName());
 
             preparedStatement.executeUpdate();
             return "Изменен продукт:\n\n" + product;
+        }catch (SQLException e){
+            return "Ошибка:\n" + e.getMessage();
+        }
+    }
+
+    public String deleteProduct(String name){
+        String query = "delete from product where name = ?;";
+
+        try (Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(query)){
+
+            preparedStatement.setString(1, name);
+
+            preparedStatement.executeUpdate();
+
+            return "Продукт " + name + " удален";
         }catch (SQLException e){
             return "Ошибка:\n" + e.getMessage();
         }

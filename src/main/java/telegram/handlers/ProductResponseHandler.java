@@ -39,6 +39,14 @@ public class ProductResponseHandler {
         answer.setChatId(chatId);
         sender.execute(answer);
     }
+
+    public void deleteProduct(long chatId, Update update){
+        String[] message = update.getMessage().getText().split(" ");
+        SendMessage answer = new SendMessage();
+        answer.setText(db.deleteProduct(message[1]));
+        answer.setChatId(chatId);
+        sender.execute(answer);
+    }
 }
 
 
