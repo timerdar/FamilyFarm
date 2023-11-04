@@ -1,10 +1,10 @@
+.idea/workspace.xml
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 **/Constants.java
-.idea/workspace.xml
 
 ### STS ###
 .apt_generated
