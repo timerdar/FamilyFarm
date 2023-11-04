@@ -3,7 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-*/Constants.*
+**/Constants.java
 
 ### STS ###
 .apt_generated
@@ -15,7 +15,7 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+*.idea/*
 *.iws
 *.iml
 *.ipr

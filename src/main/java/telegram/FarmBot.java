@@ -25,6 +25,7 @@ public class FarmBot extends AbilityBot implements Constants{
                 .locality(Locality.USER)
                 .privacy(Privacy.PUBLIC)
                 .action(ctx -> responseHandler.replyToStart(ctx.chatId()))
+                .post(ctx -> responseHandler.replyToStart2(ctx.chatId(), ctx.update()))
                 .build();
     }
 
