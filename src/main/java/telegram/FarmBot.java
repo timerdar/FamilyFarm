@@ -92,6 +92,39 @@ public class FarmBot extends AbilityBot implements Constants{
                 .build();
     }
 
+    public Ability changeConsumer(){
+        return Ability.builder()
+                .name("change_consumer")
+                .info("Удалит старые данные заказчика и добавит новые(Введите имя, улицу, дом+кв, район, телефон)")
+                .input(5)
+                .privacy(Privacy.ADMIN)
+                .locality(Locality.USER)
+                .action(ctx -> consumerResponseHandler.changeConsumer(ctx.chatId(), ctx.update()))
+                .build();
+    }
+
+    public Ability consumerListByDistrict(){
+        return Ability.builder()
+                .name("consumers_district")
+                .info("Выводит список заказчиков из определенного района(Введите район)")
+                .input(1)
+                .privacy(Privacy.ADMIN)
+                .locality(Locality.USER)
+                .action(ctx -> consumerResponseHandler.consumerListByDistrict(ctx.chatId(), ctx.update()))
+                .build();
+    }
+
+    public Ability districtsList(){
+        return Ability.builder()
+                .name("districts")
+                .info("Выводит список районов доставки")
+                .input(0)
+                .locality(Locality.USER)
+                .privacy(Privacy.PUBLIC)
+                .action(ctx -> consumerResponseHandler.getDistrictsList(ctx.chatId()))
+                .build();
+    }
+
     public Ability stop(){
         return Ability.builder()
                 .name("stop")
