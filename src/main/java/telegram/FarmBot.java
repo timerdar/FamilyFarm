@@ -8,6 +8,7 @@ import org.telegram.abilitybots.api.objects.Privacy;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import telegram.handlers.ConsumerResponseHandler;
 import telegram.handlers.DefaultResponseHandler;
+import telegram.handlers.OrderResponseHandler;
 import telegram.handlers.ProductResponseHandler;
 
 @Component
@@ -16,6 +17,7 @@ public class FarmBot extends AbilityBot implements Constants{
     private final ProductResponseHandler productResponseHandler;
     private final ConsumerResponseHandler consumerResponseHandler;
     private final DefaultResponseHandler defaultResponseHandler;
+    private final OrderResponseHandler orderResponseHandler;
 
 
     public FarmBot(){
@@ -23,6 +25,7 @@ public class FarmBot extends AbilityBot implements Constants{
         productResponseHandler = new ProductResponseHandler(silent);
         defaultResponseHandler = new DefaultResponseHandler(silent);
         consumerResponseHandler = new ConsumerResponseHandler(silent);
+        orderResponseHandler = new OrderResponseHandler(silent);
     }
 
     public Ability startBot(){
@@ -125,6 +128,20 @@ public class FarmBot extends AbilityBot implements Constants{
                 .build();
     }
 
+    //ORDER COMMANDS
+
+    public Ability addOrder(){
+        return Ability.builder()
+                .name("add_order")
+                .info("Добавить заказ(ы)")
+                .privacy(Privacy.PUBLIC)
+                .locality(Locality.USER)
+                .action(ctx -> orderResponseHandler.addOrder(ctx.chatId(), ctx.update()))
+                .build();
+    }
+
+
+    //DEFAULT COMMANDS
     public Ability stop(){
         return Ability.builder()
                 .name("stop")

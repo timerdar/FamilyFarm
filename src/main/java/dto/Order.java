@@ -2,29 +2,33 @@ package dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.mapdb.StoreTrivial;
 
-import java.sql.Date;
+import java.util.Calendar;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 
 public class Order {
     @Getter @Setter
-    private final Consumer consumer;
+    private final String consumer_name;
     @Getter @Setter
-    private final Product product;
+    private final String  product_name;
     @Getter @Setter
-    private final Date start_data;
-    @Getter @Setter
-    private final String status;
+    private final java.sql.Date start_data;
     @Getter @Setter
     private final float amount;
-    @Setter @Getter
-    private final float sum;
 
-    public Order(Consumer consumer, Product product, Date start_data, String status, float amount, float sum) {
-        this.consumer = consumer;
-        this.product = product;
-        this.start_data = start_data;
-        this.status = status;
+    // TODO: 05.11.2023 Сделать toString
+    public Order(String consumer_name, String product_name, float amount) {
+        this.consumer_name = consumer_name;
+        this.product_name = product_name;
+        Date d = new Date();
+        this.start_data = new java.sql.Date(d.getTime());
         this.amount = amount;
-        this.sum = sum;
+    }
+
+    @Override
+    public String toString() {
+        return consumer_name + " " + product_name + " " + start_data + " " + amount;
     }
 }
