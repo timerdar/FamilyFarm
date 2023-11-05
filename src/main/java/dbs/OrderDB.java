@@ -16,8 +16,6 @@ public class OrderDB extends DatabaseController{
      * @return Текст о том, что заказ добавлен или ошибку, что нет в других таблица данных
      */
 
-    // TODO: 05.11.2023 ДОБАВИТЬ ВОЗМОЖНОСТЬ ДОБАВЛЕНИЯ НЕСКОЛЬКИХ ПОЗИЦИЙ ЗАКАЗА ДЛЯ ОДНОГО ПОЛЬЗОВАТЕЛЯ
-    // TODO: 05.11.2023 ДОБАВИТЬ В ТАБЛИЦУ ТРИГЕР ДЛЯ РАСЧЕТА ЗНАЧЕНИЯ ИТОГОВОЙ СУММЫ ПРИ ДОБАВЛЕНИИ ИЛИ ИЗМЕНЕНИИ ЗАКАЗА
     public String addOrder(@NotNull Order order){
         String existsConsumer = "select count(name) from consumer where name = '" + order.getConsumer_name() + "';";
         String existsProduct = "select count(name) from product where name = '" + order.getProduct_name() + "';";
@@ -63,6 +61,104 @@ public class OrderDB extends DatabaseController{
             preparedStatement.executeUpdate();
 
             return "Заказ добавлен:\n" + order;
+        }catch (Exception e){
+            return "Ошибка:\n" + e.getMessage();
+        }
+    }
+
+    /**
+     * Возвращает список заказов из view undone_orders и delivery
+     * @param view вид заказов для вывода
+     * @return список заказов (для delivery с суммой)
+     */
+    public String getOrdersList(String view){
+        String table, label;
+        label = switch (view) {
+            default -> {
+                table = "ERROR";
+                yield "ERROR";
+            }
+            case "undone" -> {
+                table = "undone_orders";
+                yield "Незакрытые заказы:\n\n";
+            }
+            case "delivery" -> {
+                table = "delivery";
+                yield "В доставке:\n\n";
+            }
+        };
+        StringBuilder list = new StringBuilder(label);
+        String query = "select * from " + table + " where consumer_id = ?;";
+        String allConsumers = "select distinct consumer_id from " + table + ";";
+        String getCons = "select name from consumer where id = ?;";
+        String getProd = "select name from product where id = ?;";
+
+        //Получаем список consumer_id у кого есть заказ
+        try (Connection connection = getConnection();
+        Statement consumers = connection.createStatement()){
+            ResultSet resultSet = consumers.executeQuery(allConsumers);
+            while (resultSet.next()){
+
+                int consumer_id = resultSet.getInt(1);
+
+                PreparedStatement consumName = connection.prepareStatement(getCons);
+                consumName.setInt(1, consumer_id);
+                ResultSet consum = consumName.executeQuery();
+                consum.next();
+                String consumer_name = consum.getString(1);
+
+                list.append(consumer_name);
+                list.append("\n");
+
+                //Список заказов каждого consumer_id, у которых есть заказы
+                PreparedStatement orderSt = connection.prepareStatement(query);
+                orderSt.setInt(1, consumer_id);
+                ResultSet ordersRS = orderSt.executeQuery();
+                while (ordersRS.next()){
+                    //Получить название каждого продукта из заказов
+                    PreparedStatement getProdSt = connection.prepareStatement(getProd);
+                    getProdSt.setInt(1, ordersRS.getInt("product_id"));
+                    ResultSet productRS = getProdSt.executeQuery();
+                    productRS.next();
+
+                    list.append(ordersRS.getInt("id"));
+                    list.append(") ");
+                    list.append(productRS.getString(1));
+                    list.append(" ");
+                    list.append(ordersRS.getFloat("amount"));
+                    if(view.equals("delivery")){
+                        list.append(" ");
+                        list.append(ordersRS.getFloat("sum"));
+                        list.append(" руб");
+                    }
+                    list.append("\n");
+                }
+                list.append("\n");
+            }
+            return list.toString();
+        }catch (Exception e){
+            return "Ошибка:\n" + e.getMessage();
+        }
+    }
+
+
+    /**
+     * Меняет статус выбранных id заказов в "В доставке"
+     * @param ids массив order_id
+     * @return Полный список заказов, которые сейчас в доставке
+     */
+    public String moveToDelivery(String[] ids){
+        String query = "update \"order\" set status_id = 2 where id = ?";
+
+        try (Connection connection = getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(query)){
+
+            for (String id:ids){
+                preparedStatement.setInt(1, Integer.parseInt(id));
+                preparedStatement.executeUpdate();
+            }
+
+            return getOrdersList("delivery");
         }catch (Exception e){
             return "Ошибка:\n" + e.getMessage();
         }

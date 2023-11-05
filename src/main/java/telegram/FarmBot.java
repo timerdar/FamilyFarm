@@ -5,7 +5,6 @@ import org.telegram.abilitybots.api.bot.AbilityBot;
 import org.telegram.abilitybots.api.objects.Ability;
 import org.telegram.abilitybots.api.objects.Locality;
 import org.telegram.abilitybots.api.objects.Privacy;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import telegram.handlers.ConsumerResponseHandler;
 import telegram.handlers.DefaultResponseHandler;
 import telegram.handlers.OrderResponseHandler;
@@ -42,7 +41,7 @@ public class FarmBot extends AbilityBot implements Constants{
     public Ability addProduct(){
         return Ability.builder()
                 .name("add_product")
-                .info("Добавлить продукт в базу (Введите название и цену)")
+                .info("Добавить продукт в базу (Введите название и цену)")
                 .locality(Locality.USER)
                 .privacy(Privacy.ADMIN)
                 .input(2)
@@ -90,7 +89,7 @@ public class FarmBot extends AbilityBot implements Constants{
                 .privacy(Privacy.ADMIN)
                 .locality(Locality.USER)
                 .input(5)
-                .info("Добавление нового заказчика (Введите имя, улицу, дом+кв, район, телефон)")
+                .info("Добавить нового заказчика (Введите имя, улицу, дом+кв, район, телефон)")
                 .action(ctx -> consumerResponseHandler.addConsumer(ctx.chatId(), ctx.update()))
                 .build();
     }
@@ -98,7 +97,7 @@ public class FarmBot extends AbilityBot implements Constants{
     public Ability changeConsumer(){
         return Ability.builder()
                 .name("change_consumer")
-                .info("Удалит старые данные заказчика и добавит новые(Введите имя, улицу, дом+кв, район, телефон)")
+                .info("Изменить данные заказчика(Введите имя, улицу, дом+кв, район, телефон)")
                 .input(5)
                 .privacy(Privacy.ADMIN)
                 .locality(Locality.USER)
@@ -109,7 +108,7 @@ public class FarmBot extends AbilityBot implements Constants{
     public Ability consumerListByDistrict(){
         return Ability.builder()
                 .name("consumers_district")
-                .info("Выводит список заказчиков из определенного района(Введите район)")
+                .info("Вывести список заказчиков из определенного района(Введите район)")
                 .input(1)
                 .privacy(Privacy.ADMIN)
                 .locality(Locality.USER)
@@ -120,7 +119,7 @@ public class FarmBot extends AbilityBot implements Constants{
     public Ability districtsList(){
         return Ability.builder()
                 .name("districts")
-                .info("Выводит список районов доставки")
+                .info("Вывести список районов доставки")
                 .input(0)
                 .locality(Locality.USER)
                 .privacy(Privacy.PUBLIC)
@@ -140,6 +139,35 @@ public class FarmBot extends AbilityBot implements Constants{
                 .build();
     }
 
+    public Ability getUndoneOrders(){
+        return Ability.builder()
+                .name("undone")
+                .info("Список незакрытых заказов")
+                .locality(Locality.USER)
+                .privacy(Privacy.ADMIN)
+                .action(ctx -> orderResponseHandler.undoneOrdersList(ctx.chatId()))
+                .build();
+    }
+
+    public Ability getDeliveryOrders(){
+        return Ability.builder()
+                .name("delivery")
+                .info("Список заказов в доставку")
+                .locality(Locality.USER)
+                .privacy(Privacy.ADMIN)
+                .action(ctx -> orderResponseHandler.deliveryOrdersList(ctx.chatId()))
+                .build();
+    }
+
+    public Ability moveToDelivery(){
+        return Ability.builder()
+                .name("to_delivery")
+                .info("Перенести заказы в доставку(Введите номер позиций)")
+                .locality(Locality.USER)
+                .privacy(Privacy.ADMIN)
+                .action(ctx -> orderResponseHandler.moveToDelivery(ctx.chatId(), ctx.update()))
+                .build();
+    }
 
     //DEFAULT COMMANDS
     public Ability stop(){

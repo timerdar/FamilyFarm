@@ -1,10 +1,10 @@
 package com.timerdar.FamilyFarm;
 
-import dto.Order;
-
 public class Test {
 
     public static void main(String[] args) {
-        Order order = new Order("Иван", "Курица", 1);
+        String s = "0.1";
+        double d = Double.parseDouble(s);
+        System.out.println(d);
     }
 }
