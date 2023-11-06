@@ -52,4 +52,34 @@ public class OrderResponseHandler {
         answer.setText(db.moveToDelivery(ids));
         sender.execute(answer);
     }
+
+    public void undoneOrdersByProducts(long chatId){
+        SendMessage answer = new SendMessage();
+        answer.setChatId(chatId);
+        answer.setText(db.getOrdersListByProducts());
+        sender.execute(answer);
+    }
+
+    public void deliveryList(long chatId){
+        SendMessage answer = new SendMessage();
+        answer.setChatId(chatId);
+        answer.setText(db.getListToDelivery());
+        sender.execute(answer);
+    }
+
+    public void changeAmountDelivery(long chatId, Update update){
+        SendMessage answer = new SendMessage();
+        String[] message = update.getMessage().getText().split(" ");
+        answer.setText(db.changeOrderAmount(Arrays.copyOfRange(message, 1, message.length)));
+        answer.setChatId(chatId);
+        sender.execute(answer);
+    }
+
+    public void deleteOrder(long chatId, Update update){
+        SendMessage answer = new SendMessage();
+        String[] message = update.getMessage().getText().split(" ");
+        answer.setChatId(chatId);
+        answer.setText(db.deleteOrder(Arrays.copyOfRange(message, 1, message.length)));
+        sender.execute(answer);
+    }
 }

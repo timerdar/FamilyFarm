@@ -1,5 +1,6 @@
 package telegram;
 
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.stereotype.Component;
 import org.telegram.abilitybots.api.bot.AbilityBot;
 import org.telegram.abilitybots.api.objects.Ability;
@@ -166,6 +167,43 @@ public class FarmBot extends AbilityBot implements Constants{
                 .locality(Locality.USER)
                 .privacy(Privacy.ADMIN)
                 .action(ctx -> orderResponseHandler.moveToDelivery(ctx.chatId(), ctx.update()))
+                .build();
+    }
+
+    public Ability undoneOrdersByProducts(){
+        return Ability.builder()
+                .name("undone_by_products")
+                .info("Сгруппированные заказы по продуктам")
+                .privacy(Privacy.ADMIN)
+                .locality(Locality.USER)
+                .action(ctx -> orderResponseHandler.undoneOrdersByProducts(ctx.chatId()))
+                .build();
+    }
+
+    public Ability deliveryList(){
+        return Ability.builder()
+                .name("delivery_list")
+                .locality(Locality.USER)
+                .privacy(Privacy.ADMIN)
+                .action(ctx -> orderResponseHandler.deliveryList(ctx.chatId()))
+                .build();
+    }
+
+    public Ability changeAmount(){
+        return Ability.builder()
+                .name("change_amount")
+                .locality(Locality.USER)
+                .privacy(Privacy.ADMIN)
+                .action(ctx -> orderResponseHandler.changeAmountDelivery(ctx.chatId(), ctx.update()))
+                .build();
+    }
+
+    public Ability deleteOrder(){
+        return Ability.builder()
+                .name("delete")
+                .locality(Locality.USER)
+                .privacy(Privacy.ADMIN)
+                .action(ctx -> orderResponseHandler.deleteOrder(ctx.chatId(), ctx.update()))
                 .build();
     }
 
