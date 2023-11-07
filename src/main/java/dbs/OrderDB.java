@@ -151,7 +151,7 @@ public class OrderDB extends DatabaseController{
 
         String products = "select distinct product_id from undone_orders";
         String sum = "select sum(amount) from undone_orders where product_id = ?";
-        String ordersList = "select consumer_id, amount from undone_orders where product_id = ?";
+        String ordersList = "select id, consumer_id, amount from undone_orders where product_id = ?";
         String consumerName = "select name from consumer where id = ?";
         String productName = "select name from product where id = ?";
 
@@ -187,8 +187,9 @@ public class OrderDB extends DatabaseController{
                 order_list_statement.setInt(1, product_id);
                 ResultSet orders_rs = order_list_statement.executeQuery();
                 while (orders_rs.next()){
-                    int consumer_id = orders_rs.getInt(1);
-                    double amount = orders_rs.getInt(2);
+                    int order_id = orders_rs.getInt(1);
+                    int consumer_id = orders_rs.getInt(2);
+                    double amount = orders_rs.getInt(3);
 
                     //получение имени заказчика и кол-ва данной позиции
                     PreparedStatement consumer_name_statement = connection.prepareStatement(consumerName);
@@ -197,6 +198,8 @@ public class OrderDB extends DatabaseController{
                     consumer_name_rs.next();
                     String consumer_name = consumer_name_rs.getString(1);
 
+                    list.append(order_id);
+                    list.append(") ");
                     list.append(consumer_name);
                     list.append(" ");
                     list.append(amount);
@@ -239,7 +242,7 @@ public class OrderDB extends DatabaseController{
     public String getListToDelivery(){
         StringBuilder list = new StringBuilder("Список заказов и заказчиков по районам для доставки:\n\n");
 
-        String orderList = "select product_id, amount, \"sum\" from delivery where consumer_id = ?;";
+        String orderList = "select product_id, amount, \"sum\", comment from delivery where consumer_id = ?;";
         String consumersList = "select * from consumer where id in (select distinct consumer_id from delivery) and district_id = ?;";
         String productName = "select name from product where id = ?;";
         String districtName = "select district from district where id = ?;";
@@ -260,13 +263,16 @@ public class OrderDB extends DatabaseController{
                 district_name_rs.next();
                 String district_name = district_name_rs.getString(1);
 
+                list.append("______");
                 list.append(district_name);
-                list.append("\n\n");
+                list.append("______\n\n");
 
                 PreparedStatement consumer_from_district = connection.prepareStatement(consumersList);
                 consumer_from_district.setInt(1, district_id);
                 ResultSet consumers_list_rs = consumer_from_district.executeQuery();
                 while (consumers_list_rs.next()){
+
+                    StringBuilder comments = new StringBuilder("Комментарии: ");
                     int consumer_id = consumers_list_rs.getInt(1);
 
                     PreparedStatement total_sum_statement = connection.prepareStatement(totalSumCounter);
@@ -283,7 +289,7 @@ public class OrderDB extends DatabaseController{
                     list.append(consumers_list_rs.getString("phone"));
                     list.append(" ");
                     list.append(total_sum_rs.getDouble(1));
-                    list.append("руб\n");
+                    list.append(" руб\n");
 
                     //получение заказов этого заказчика
                     PreparedStatement orders_statement = connection.prepareStatement(orderList);
@@ -305,9 +311,12 @@ public class OrderDB extends DatabaseController{
                         list.append(orders_rs.getDouble(2));
                         list.append(" ");
                         list.append(orders_rs.getDouble(3));
-                        list.append("\n");
+                        list.append(" руб\n");
+
+                        comments.append(orders_rs.getString("comment"));
                     }
-                    list.append("\n");
+                    list.append(comments);
+                    list.append("\n\n");
                 }
                 list.append("\n");
             }
@@ -355,6 +364,34 @@ public class OrderDB extends DatabaseController{
             }
 
             return getOrdersList("undone");
+        }catch (Exception e){
+            return "Ошибка:\n" + e.getMessage();
+        }
+    }
+
+    public String addComment(int id, String comment){
+        String query = "update \"order\" set comment = ? where id = ?";
+
+        try(Connection connection = getConnection();
+        PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(2, id);
+            statement.setString(1, comment);
+            statement.executeUpdate();
+
+            return "К заказу " + id + " добавлен комментарий:\n" + comment;
+        }catch (Exception e){
+            return "Ошибка:\n" + e.getMessage();
+        }
+
+    }
+
+    public String clearDelivery(){
+        String query = "call clear_delivery();";
+
+        try(Connection connection = getConnection();
+        Statement statement = connection.createStatement()){
+            statement.executeQuery(query);
+            return getOrdersList("delivery");
         }catch (Exception e){
             return "Ошибка:\n" + e.getMessage();
         }

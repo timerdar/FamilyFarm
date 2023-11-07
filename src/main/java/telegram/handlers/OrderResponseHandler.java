@@ -3,6 +3,7 @@ package telegram.handlers;
 import dbs.OrderDB;
 import dto.Order;
 import org.telegram.abilitybots.api.sender.SilentSender;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -80,6 +81,29 @@ public class OrderResponseHandler {
         String[] message = update.getMessage().getText().split(" ");
         answer.setChatId(chatId);
         answer.setText(db.deleteOrder(Arrays.copyOfRange(message, 1, message.length)));
+        answer.setParseMode(ParseMode.MARKDOWN);
+        sender.execute(answer);
+    }
+
+    public void addComment(long chatId, Update update){
+        SendMessage answer = new SendMessage();
+        String[] message = update.getMessage().getText().split(" ");
+        int id = Integer.parseInt(message[1]);
+        StringBuilder comment = new StringBuilder();
+        for (int i = 2; i < message.length; i++){
+            comment.append(message[i]);
+            comment.append(" ");
+        }
+        answer.setChatId(chatId);
+        answer.setText(db.addComment(id, comment.toString()));
+        sender.execute(answer);
+
+    }
+
+    public void clearDelivery(long chatId){
+        SendMessage answer = new SendMessage();
+        answer.setChatId(chatId);
+        answer.setText(db.clearDelivery());
         sender.execute(answer);
     }
 }
