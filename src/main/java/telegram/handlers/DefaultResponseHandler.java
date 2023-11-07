@@ -1,11 +1,7 @@
 package telegram.handlers;
 
-import dbs.ProductDB;
-import dto.Product;
-import org.checkerframework.checker.units.qual.C;
 import org.telegram.abilitybots.api.sender.SilentSender;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Update;
 import telegram.Constants;
 
 public class DefaultResponseHandler {

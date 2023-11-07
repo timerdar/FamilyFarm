@@ -1,7 +1,5 @@
 package telegram;
 
-import org.checkerframework.checker.units.qual.A;
-import org.springframework.boot.availability.AvailabilityChangeEvent;
 import org.springframework.stereotype.Component;
 import org.telegram.abilitybots.api.bot.AbilityBot;
 import org.telegram.abilitybots.api.objects.Ability;
@@ -11,8 +9,6 @@ import telegram.handlers.ConsumerResponseHandler;
 import telegram.handlers.DefaultResponseHandler;
 import telegram.handlers.OrderResponseHandler;
 import telegram.handlers.ProductResponseHandler;
-
-import javax.lang.model.util.AbstractAnnotationValueVisitor6;
 
 @Component
 public class FarmBot extends AbilityBot implements Constants{
