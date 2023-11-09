@@ -395,4 +395,27 @@ public class OrderDB extends DatabaseController{
             return "Ошибка:\n" + e.getMessage();
         }
     }
+
+    public String lastOrders(String consumer_name){
+        String query = "select * from last_10_orders(?);";
+        StringBuilder list = new StringBuilder("Последние заказы " + consumer_name + ":\n\n");
+
+        try(Connection connection = getConnection();
+        PreparedStatement statement = connection.prepareStatement(query)){
+
+            statement.setString(1, consumer_name);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                list.append(rs.getString(1));
+                list.append(" ");
+                list.append(rs.getDouble(2));
+                list.append(" ");
+                list.append(rs.getDate(3).toString());
+                list.append("\n");
+            }
+            return list.toString();
+        }catch (Exception e){
+            return "Ошибка:\n" + e.getMessage();
+        }
+    }
 }

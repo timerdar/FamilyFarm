@@ -106,4 +106,12 @@ public class OrderResponseHandler {
         answer.setText(db.clearDelivery());
         sender.execute(answer);
     }
+
+    public void lastOrders(long chatId, Update update){
+        SendMessage answer = new SendMessage();
+        String[] message = update.getMessage().getText().split(" ");
+        answer.setText(db.lastOrders(message[1]));
+        answer.setChatId(chatId);
+        sender.execute(answer);
+    }
 }

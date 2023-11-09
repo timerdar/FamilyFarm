@@ -28,6 +28,9 @@ public interface Constants {
             ✨- Список незакрытых заказов
             /undone_c
             
+            - Перенести заказ в доставку
+            /to_delivery
+            
             - Список заказов в доставке сейчас
             /delivery
             

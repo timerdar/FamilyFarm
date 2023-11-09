@@ -229,6 +229,17 @@ public class FarmBot extends AbilityBot implements Constants{
                 .build();
     }
 
+    public Ability lastOrders(){
+        return Ability.builder()
+                .name("last_orders")
+                .input(1)
+                .info("Вывод последних заказов данного заказчика")
+                .privacy(Privacy.ADMIN)
+                .locality(Locality.USER)
+                .action(ctx -> orderResponseHandler.lastOrders(ctx.chatId(), ctx.update()))
+                .build();
+    }
+
     //DEFAULT COMMANDS
     public Ability stop(){
         return Ability.builder()
