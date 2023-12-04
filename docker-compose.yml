@@ -12,3 +12,23 @@ services:
       POSTGRES_DB: farm
     volumes:
       - /postgres:/var/lib/postgresql/data
+    networks:
+      - net
+
+
+  bot:
+    container_name: farm_bot
+    build: .
+    environment:
+      DBURL: jdbc:postgresql://farm_db:5678/
+      DBUSER: admin
+      DBNAME: farm
+      DBPASSWORD: *
+      BOT_TOKEN: *
+      CREATOR_ID: *
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge
