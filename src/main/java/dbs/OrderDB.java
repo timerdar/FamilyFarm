@@ -34,14 +34,14 @@ public class OrderDB extends DatabaseController{
             ResultSet consumers = existCons.executeQuery(existsConsumer);
             if (consumers.next()){
                 if (consumers.getInt(1) == 0){
-                    throw new Exception("Нет заказчика в базе. Сначала необходимо добавить заказчика.\n/add_consumer");
+                    throw new Exception("Нет заказчика в базе. Сначала необходимо добавить заказчика.\n/add_c");
                 }
             }
 
             ResultSet products = existProd.executeQuery(existsProduct);
             if (products.next()){
                 if (products.getInt(1) == 0){
-                    throw new Exception("Нет продукта в базе. Сначала необходимо добавить продукт.\n/add_product");
+                    throw new Exception("Нет продукта в базе. Сначала необходимо добавить продукт.\n/add_p");
                 }
             }
 

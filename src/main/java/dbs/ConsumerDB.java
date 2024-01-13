@@ -1,7 +1,6 @@
 package dbs;
 
 import dto.Consumer;
-import org.apache.commons.io.input.buffer.PeekableInputStream;
 
 import java.sql.*;
 

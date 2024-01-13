@@ -17,7 +17,7 @@ public class ProductResponseHandler {
 
     public void addProduct(long chatId, Update update){
         String[] message = update.getMessage().getText().split(" ");
-        Product product = new Product(message[1], Double.valueOf(message[2]));
+        Product product = new Product(message[1], Double.valueOf(message[2]), Boolean.parseBoolean(message[3]));
         SendMessage answer = new SendMessage();
         answer.setText(db.addProduct(product));
         answer.setChatId(chatId);
@@ -33,7 +33,7 @@ public class ProductResponseHandler {
 
     public void changeProductPrice(long chatId, Update update){
         String[] message = update.getMessage().getText().split(" ");
-        Product product = new Product(message[1], Double.valueOf(message[2]));
+        Product product = new Product(message[1], Double.valueOf(message[2]), Boolean.parseBoolean(message[3]));
         SendMessage answer = new SendMessage();
         answer.setText(db.changePrice(product));
         answer.setChatId(chatId);

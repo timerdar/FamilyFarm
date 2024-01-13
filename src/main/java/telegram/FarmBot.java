@@ -45,11 +45,10 @@ public class FarmBot extends AbilityBot implements Constants{
                 .info("Добавить продукт в базу (Введите название и цену)")
                 .locality(Locality.USER)
                 .privacy(Privacy.ADMIN)
-                .input(2)
                 .action(ctx -> productResponseHandler.addProduct(ctx.chatId(), ctx.update()))
                 .build();
     }
-
+    
     public Ability productList(){
         return Ability.builder()
                 .name("price_list")
@@ -65,7 +64,6 @@ public class FarmBot extends AbilityBot implements Constants{
         return Ability.builder()
                 .name("change_p")
                 .info("Поменять цену продукта (Введите название и новую цену)")
-                .input(2)
                 .locality(Locality.USER)
                 .privacy(Privacy.ADMIN)
                 .action(ctx -> productResponseHandler.changeProductPrice(ctx.chatId(), ctx.update()))

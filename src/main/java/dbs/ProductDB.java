@@ -1,20 +1,19 @@
 package dbs;
 
 import dto.Product;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-
 import java.sql.*;
 
 public class ProductDB extends DatabaseController{
 
     public String addProduct(Product product){
 
-        String query = "insert into product(name, price) values(?, ?);";
+        String query = "insert into product(name, price, eval) values(?, ?, ?);";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)){
             preparedStatement.setString(1, product.getName());
             preparedStatement.setDouble(2, product.getPrice());
+            preparedStatement.setBoolean(3, product.getEval());
 
             preparedStatement.executeUpdate();
 
@@ -38,8 +37,9 @@ public class ProductDB extends DatabaseController{
                 list.append(rs.getString(2));
                 list.append("\t");
                 list.append(rs.getDouble(3));
-                list.append(" руб/шт(кг)\n");
-
+                list.append(" руб/шт(кг) ");
+                list.append(rs.getBoolean(4));
+                list.append("\n");
             }
 
             return list.toString();

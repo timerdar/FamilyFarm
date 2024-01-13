@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class DatabaseController {
 
-    public static final String db_url = System.getenv("DBURL") + System.getenv("DBNAME");
-    public static final String db_user = System.getenv("DBUSER");
-    public static final String db_password = System.getenv("DBPASSWORD");
+    private static final String db_url = System.getenv("DBURL") + System.getenv("DBNAME");
+    private static final String db_user = System.getenv("DBUSER");
+    private static final String db_password = System.getenv("DBPASSWORD");
 
     public Connection getConnection(){
         Connection connection = null;
